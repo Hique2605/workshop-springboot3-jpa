@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Hique2605.Course.entities.Category;
-import com.Hique2605.Course.entities.User;
 import com.Hique2605.Course.services.CategoryService;
 
 @RestController
