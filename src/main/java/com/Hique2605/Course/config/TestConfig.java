@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.Hique2605.Course.entities.Category;
 import com.Hique2605.Course.entities.Order;
 import com.Hique2605.Course.entities.OrderItem;
+import com.Hique2605.Course.entities.Payment;
 import com.Hique2605.Course.entities.Product;
 import com.Hique2605.Course.entities.User;
 import com.Hique2605.Course.entities.enums.OrderStatus;
@@ -83,11 +84,10 @@ public class TestConfig implements CommandLineRunner {
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1 ,oi2 ,oi3 ,oi4));
 		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1); //para salvar um obj dependente numa relacao 1 para 1 , nao se chama o repository do proprio obj
+		
+		orderRepository.save(o1);
 		
 	}
-	
-	
-	
-	
-	
 }
