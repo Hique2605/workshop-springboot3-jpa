@@ -3,12 +3,14 @@ package com.Hique2605.Course.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.Hique2605.Course.entities.User;
 import com.Hique2605.Course.repositories.UserRepository;
+import com.Hique2605.Course.services.exceptions.DatabaseException;
 import com.Hique2605.Course.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -34,7 +36,21 @@ public class UserService {
 	
 	//deleta user 
 	public void delete(Long id) {
-		repository.deleteById(id);
+	    try {
+	        // Verifica se o usuário existe no repositório
+	        if (!repository.existsById(id)) {
+	            throw new ResourceNotFoundException(id); // Lança exceção se o usuário não existir
+	        }
+	        // Deleta o usuário se existir
+	        repository.deleteById(id);
+
+	    } catch (EmptyResultDataAccessException e) {
+	        // Caso ocorra erro devido a um ID inexistente ou já deletado
+	        throw new ResourceNotFoundException(id);
+	    } catch (DataIntegrityViolationException e) {
+	        // Caso ocorra erro devido a integridade de dados (exemplo: o usuário tem registros relacionados)
+	        throw new DatabaseException(e.getMessage());
+	    }
 	}
 	
 	//update user 
