@@ -13,6 +13,8 @@ import com.Hique2605.Course.repositories.UserRepository;
 import com.Hique2605.Course.services.exceptions.DatabaseException;
 import com.Hique2605.Course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	
@@ -55,9 +57,13 @@ public class UserService {
 	
 	//update user 
 		public User update(Long id, User obj) {
+			try {
 			User entity = repository.getReferenceById(id);
 			updateData(entity, obj);
 			return repository.save(entity);
+			} catch(EntityNotFoundException e) {
+				throw new ResourceNotFoundException(id);
+			}
 		}
 		
 		//metodo que atualiza, nao deixa atualizar senha e id 
