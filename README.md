@@ -14,6 +14,8 @@ Este projeto é uma aplicação web back-end desenvolvida durante o curso do Pro
 
 ##   Tecnologias Utilizadas
 
+![img das tecnologias](tecnologias.png)
+
 - **Java 17**
 - **Spring Boot**
 - **JPA / Hibernate**
@@ -32,6 +34,9 @@ Este projeto é uma aplicação web back-end desenvolvida durante o curso do Pro
 - Cálculo de subtotal e total do pedido
 - Pagamento associado ao pedido
 - Tratamento de exceções personalizado
+
+![Model 1](domainModel.png)
+![Model 2](domainInstance.png)
 
 ##  Camadas do Projeto
 
