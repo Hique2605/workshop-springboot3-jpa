@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.Hique2605.Course.entities.User;
 import com.Hique2605.Course.repositories.UserRepository;
+import com.Hique2605.Course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -23,12 +24,14 @@ public class UserService {
 	
 	public User findById(long id ) {
 	Optional<User>	obj = repository.findById(id);
-	return obj.get();
+	return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
 	//cria user 
 	public User insert(User obj) {
 		return repository.save(obj);
 	}
+	
 	//deleta user 
 	public void delete(Long id) {
 		repository.deleteById(id);
@@ -40,6 +43,7 @@ public class UserService {
 			updateData(entity, obj);
 			return repository.save(entity);
 		}
+		
 		//metodo que atualiza, nao deixa atualizar senha e id 
 		private void updateData(User entity, User obj) {
 			entity.setName(obj.getName());
